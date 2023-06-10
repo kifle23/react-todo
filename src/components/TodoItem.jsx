@@ -1,7 +1,8 @@
 import styles from '@/styles/TodoItem.module.css';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 
 const TodoItem = ({ itemProp, handleChange, delTodo, setUpdate }) => {
+  const editInputRef = useRef(null);
   const [editing, setEditing] = useState(false);
   const completedStyle = {
     fontStyle: 'italic',
@@ -24,6 +25,7 @@ const TodoItem = ({ itemProp, handleChange, delTodo, setUpdate }) => {
 
   const handleUpdatedDone = (event) => {
     if (event.key === 'Enter') {
+      setUpdate(editInputRef.current.value, itemProp.id);
       setEditing(false);
     }
   };
@@ -44,10 +46,10 @@ const TodoItem = ({ itemProp, handleChange, delTodo, setUpdate }) => {
       </div>
       <input
         type="text"
-        value={itemProp.title}
+        ref={editInputRef}
+        defaultValue={itemProp.title}
         className={styles.textInput}
         style={editMode}
-        onChange={(e) => setUpdate(e.target.value, itemProp.id)}
         onKeyDown={handleUpdatedDone}
       />
     </li>
