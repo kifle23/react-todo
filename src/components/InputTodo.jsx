@@ -19,6 +19,12 @@ const InputTodo = ({ addTodoItem }) => {
     }
   };
 
+  const handleUpdatedDone = (event) => {
+    if (event.key === 'Enter') {
+      setEditing(false);
+    }
+  };
+
   return (
     <>
       <form onSubmit={handleSubmit} className="form-container">
